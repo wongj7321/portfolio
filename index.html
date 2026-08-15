@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.v2.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
@@ -118,11 +118,9 @@
             <p class="eyebrow">Core Competencies</p>
             <h2>Skills &amp; Tech Stack</h2>
           </div>
-          <div class="skills-collapsible" id="skillsCollapsible">
-            <button class="skills-summary" aria-expanded="false" aria-controls="skillsPanel">
-              <span class="summary-text">Java · Python · Spring Framework · Apache Kafka · Oracle</span>
-              <span class="caret">▾</span>
-            </button>
+          <div class="skills-container" id="skillsContainer">
+            <p class="skills-preview">Java · Spring Framework · Apache Kafka · Oracle DB</p>
+            <button id="skillsToggle" class="linkedin-button see-more-button" aria-expanded="false" aria-controls="skillsPanel">See more</button>
 
             <div class="skills-panel" id="skillsPanel" hidden>
               <div class="skills-grid">
@@ -294,49 +292,34 @@
       </section>
     </main>
     <script>
-      // Collapsible skills panel: hover to preview, click to toggle persist
+      // Simple toggle for Skills 'See more' button. Click to expand/persist, click outside to close.
       (function () {
-        const container = document.getElementById('skillsCollapsible');
+        const container = document.getElementById('skillsContainer');
         if (!container) return;
-        const summary = container.querySelector('.skills-summary');
-        const panel = container.querySelector('.skills-panel');
+        const button = document.getElementById('skillsToggle');
+        const panel = document.getElementById('skillsPanel');
 
-        // Helper to set aria and hidden
         function setOpen(open) {
           container.classList.toggle('open', open);
-          summary.setAttribute('aria-expanded', open ? 'true' : 'false');
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
           if (open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden', '');
+          button.textContent = open ? 'See less' : 'See more';
         }
 
-        // Hover preview (non-touch)
-        let isTouch = false;
-        window.addEventListener('touchstart', function () { isTouch = true; }, {passive:true});
-
-        summary.addEventListener('mouseenter', function () {
-          if (isTouch) return;
-          container.classList.add('hover');
-          setOpen(false);
-          panel.removeAttribute('hidden');
-        });
-        summary.addEventListener('mouseleave', function () {
-          if (isTouch) return;
-          container.classList.remove('hover');
-          if (!container.classList.contains('open')) panel.setAttribute('hidden', '');
-        });
-
-        // Click to toggle persistent open
-        summary.addEventListener('click', function (e) {
+        button.addEventListener('click', function (e) {
           e.preventDefault();
-          const willOpen = !container.classList.contains('open');
-          setOpen(willOpen);
-          container.classList.remove('hover');
+          setOpen(!container.classList.contains('open'));
         });
 
-        // Close when clicking outside
         document.addEventListener('click', function (e) {
           if (!container.contains(e.target) && container.classList.contains('open')) {
             setOpen(false);
           }
+        });
+
+        // Keyboard: Esc to close
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && container.classList.contains('open')) setOpen(false);
         });
       })();
     </script>

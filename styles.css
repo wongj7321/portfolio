@@ -365,40 +365,20 @@ img {
   align-items: start;
 }
 
-/* Collapsible skills panel styles */
-.skills-collapsible {
+/* Skills preview and See more button */
+.skills-container {
   position: relative;
 }
 
-.skills-summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.6rem 0.85rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(245,245,255,0.65));
-  font-weight: 700;
+.skills-preview {
+  margin: 0.35rem 0 0.6rem;
   color: var(--muted);
-  cursor: pointer;
+  font-weight: 600;
 }
 
-.skills-summary .summary-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.skills-summary .caret {
-  margin-left: auto;
-  color: var(--primary-strong);
-  transition: transform 180ms ease;
-}
-
-.skills-collapsible.hover .skills-summary .caret,
-.skills-collapsible.open .skills-summary .caret {
-  transform: rotate(180deg);
+.see-more-button {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
 }
 
 .skills-panel {
@@ -409,8 +389,7 @@ img {
   transition: max-height 220ms ease, opacity 200ms ease;
 }
 
-.skills-collapsible.hover .skills-panel,
-.skills-collapsible.open .skills-panel {
+.skills-container.open .skills-panel {
   max-height: 2000px;
   opacity: 1;
 }
