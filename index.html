@@ -118,56 +118,64 @@
             <p class="eyebrow">Core Competencies</p>
             <h2>Skills &amp; Tech Stack</h2>
           </div>
+          <div class="skills-collapsible" id="skillsCollapsible">
+            <button class="skills-summary" aria-expanded="false" aria-controls="skillsPanel">
+              <span class="summary-text">Java · Python · Spring Framework · Apache Kafka · Oracle</span>
+              <span class="caret">▾</span>
+            </button>
 
-          <div class="skills-grid">
-            <div class="skill-group">
-              <h3>Languages</h3>
-              <div class="skill-list">
-                <span class="skill-chip">Java</span>
-                <span class="skill-chip">Python</span>
-              </div>
-            </div>
+            <div class="skills-panel" id="skillsPanel" hidden>
+              <div class="skills-grid">
+                <div class="skill-group">
+                  <h3>Languages</h3>
+                  <div class="skill-list">
+                    <span class="skill-chip">Java</span>
+                    <span class="skill-chip">Python</span>
+                  </div>
+                </div>
 
-            <div class="skill-group">
-              <h3>Frameworks</h3>
-              <div class="skill-list">
-                <span class="skill-chip">Spring Framework</span>
-                <span class="skill-chip">Django</span>
-              </div>
-            </div>
+                <div class="skill-group">
+                  <h3>Frameworks</h3>
+                  <div class="skill-list">
+                    <span class="skill-chip">Spring Framework</span>
+                    <span class="skill-chip">Django</span>
+                  </div>
+                </div>
 
-            <div class="skill-group">
-              <h3>Platforms &amp; Infrastructure</h3>
-              <div class="skill-list">
-                <span class="skill-chip">Apache Kafka</span>
-                <span class="skill-chip">JBoss</span>
-                <span class="skill-chip">JVM Performance Tuning</span>
-                <span class="skill-chip">Jenkins (CI/CD)</span>
-                <span class="skill-chip">Autosys</span>
-              </div>
-            </div>
+                <div class="skill-group">
+                  <h3>Platforms &amp; Infrastructure</h3>
+                  <div class="skill-list">
+                    <span class="skill-chip">Apache Kafka</span>
+                    <span class="skill-chip">JBoss</span>
+                    <span class="skill-chip">JVM Performance Tuning</span>
+                    <span class="skill-chip">Jenkins (CI/CD)</span>
+                    <span class="skill-chip">Autosys</span>
+                  </div>
+                </div>
 
-            <div class="skill-group">
-              <h3>Databases</h3>
-              <div class="skill-list">
-                <span class="skill-chip">Oracle</span>
-                <span class="skill-chip">Cassandra</span>
-              </div>
-            </div>
+                <div class="skill-group">
+                  <h3>Databases</h3>
+                  <div class="skill-list">
+                    <span class="skill-chip">Oracle</span>
+                    <span class="skill-chip">Cassandra</span>
+                  </div>
+                </div>
 
-            <div class="skill-group">
-              <h3>Query &amp; Search Languages</h3>
-              <div class="skill-list">
-                <span class="skill-chip">SQL</span>
-                <span class="skill-chip">CQL</span>
-                <span class="skill-chip">Splunk Search Language (SPL)</span>
-              </div>
-            </div>
+                <div class="skill-group">
+                  <h3>Query &amp; Search Languages</h3>
+                  <div class="skill-list">
+                    <span class="skill-chip">SQL</span>
+                    <span class="skill-chip">CQL</span>
+                    <span class="skill-chip">Splunk Search Language (SPL)</span>
+                  </div>
+                </div>
 
-            <div class="skill-group">
-              <h3>AI-Assisted Development</h3>
-              <div class="skill-list">
-                <span class="skill-chip">GitHub Copilot</span>
+                <div class="skill-group">
+                  <h3>AI-Assisted Development</h3>
+                  <div class="skill-list">
+                    <span class="skill-chip">GitHub Copilot</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -188,13 +196,18 @@
                 <h3>Back-end Data Enrichment and Aggregation Service</h3>
               </div>
               <p>
-                Managed end-to-end maintenance and enhancement of the service processing 1.5 million
-                transactions, ensuring stability, performance, and security.
+                Developed and maintained a web service that performed end-to-end data enrichment
+                and aggregation, processing 1.5M+ transactions while ensuring stability,
+                performance, and security. Built and maintained Kafka producer/consumer
+                components to enable real-time data streaming, and served as the primary point
+                of contact for upstream and downstream teams to align on system changes.
               </p>
               <ul class="tech-list">
+                <li>Java</li>
                 <li>Python</li>
-                <li>Data Processing</li>
-                <li>System Maintenance</li>
+                <li>Apache Kafka</li>
+                <li>JBoss</li>
+                <li>Jenkins</li>
               </ul>
               <div class="project-links">
                 <span class="project-link status-proprietary">Internal system</span>
@@ -280,5 +293,52 @@
         </div>
       </section>
     </main>
+    <script>
+      // Collapsible skills panel: hover to preview, click to toggle persist
+      (function () {
+        const container = document.getElementById('skillsCollapsible');
+        if (!container) return;
+        const summary = container.querySelector('.skills-summary');
+        const panel = container.querySelector('.skills-panel');
+
+        // Helper to set aria and hidden
+        function setOpen(open) {
+          container.classList.toggle('open', open);
+          summary.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden', '');
+        }
+
+        // Hover preview (non-touch)
+        let isTouch = false;
+        window.addEventListener('touchstart', function () { isTouch = true; }, {passive:true});
+
+        summary.addEventListener('mouseenter', function () {
+          if (isTouch) return;
+          container.classList.add('hover');
+          setOpen(false);
+          panel.removeAttribute('hidden');
+        });
+        summary.addEventListener('mouseleave', function () {
+          if (isTouch) return;
+          container.classList.remove('hover');
+          if (!container.classList.contains('open')) panel.setAttribute('hidden', '');
+        });
+
+        // Click to toggle persistent open
+        summary.addEventListener('click', function (e) {
+          e.preventDefault();
+          const willOpen = !container.classList.contains('open');
+          setOpen(willOpen);
+          container.classList.remove('hover');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function (e) {
+          if (!container.contains(e.target) && container.classList.contains('open')) {
+            setOpen(false);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

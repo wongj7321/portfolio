@@ -365,6 +365,61 @@ img {
   align-items: start;
 }
 
+/* Collapsible skills panel styles */
+.skills-collapsible {
+  position: relative;
+}
+
+.skills-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(245,245,255,0.65));
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.skills-summary .summary-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skills-summary .caret {
+  margin-left: auto;
+  color: var(--primary-strong);
+  transition: transform 180ms ease;
+}
+
+.skills-collapsible.hover .skills-summary .caret,
+.skills-collapsible.open .skills-summary .caret {
+  transform: rotate(180deg);
+}
+
+.skills-panel {
+  margin-top: 0.6rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 220ms ease, opacity 200ms ease;
+}
+
+.skills-collapsible.hover .skills-panel,
+.skills-collapsible.open .skills-panel {
+  max-height: 2000px;
+  opacity: 1;
+}
+
+/* Make the skill-list wrap nicely when expanded */
+.skills-panel .skill-list {
+  flex-wrap: wrap;
+}
+
 .skill-group {
   background: transparent;
   border: none;
