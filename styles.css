@@ -235,6 +235,12 @@ img {
   margin-bottom: 1rem;
 }
 
+.project-date {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .project-tag {
   display: inline-flex;
   width: fit-content;
